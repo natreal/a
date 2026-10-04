@@ -1,38 +1,372 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Kype Community</title>
+    <title>About Me — Kype</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% -20%, #303038 0%, transparent 45%),
+                #0b0b0e;
+            color: #f2f2f3;
+            font-family: Arial, Helvetica, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            background: #0b0b0f;
-            font-family: Arial, sans-serif;
+            padding: 60px 20px;
         }
 
-        iframe {
+        .page {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .profile {
+            background: rgba(20, 20, 24, 0.92);
+            border: 1px solid #29292f;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        .banner {
+            height: 190px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #18181d 0%,
+                    #29292f 45%,
+                    #111114 100%
+                );
+            position: relative;
+        }
+
+        .banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent 0%,
+                    rgba(255,255,255,0.035) 50%,
+                    transparent 100%
+                );
+        }
+
+        .profile-content {
+            padding: 0 34px 34px;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #111114;
+            border: 6px solid #141418;
+            margin-top: -55px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .identity {
+            margin-top: 14px;
+        }
+
+        .identity h1 {
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: -1px;
+        }
+
+        .username {
+            color: #8f8f98;
+            margin-top: 5px;
+            font-size: 15px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            color: #b8b8bf;
+            font-size: 14px;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            background: #43b581;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(67,181,129,0.5);
+        }
+
+        .section {
+            margin-top: 34px;
+        }
+
+        .section-title {
+            color: #85858e;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 12px;
+        }
+
+        .about {
+            color: #c8c8ce;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .about strong {
+            color: #ffffff;
+        }
+
+        .divider {
+            height: 1px;
+            background: #29292f;
+            margin: 30px 0;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .card {
+            background: #17171b;
+            border: 1px solid #29292f;
             border-radius: 12px;
+            padding: 18px;
+        }
+
+        .card-title {
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .card-text {
+            color: #909098;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .discord {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .discord iframe {
+            width: 350px;
+            max-width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            border: 1px solid #29292f;
+        }
+
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 18px;
+            padding: 12px 22px;
+            border-radius: 9px;
+            background: #5865f2;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        footer {
+            text-align: center;
+            color: #55555d;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .banner {
+                height: 140px;
+            }
+
+            .profile-content {
+                padding: 0 20px 25px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .identity h1 {
+                font-size: 25px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <iframe
-        src="https://discord.com/widget?id=1550252796652036168&theme=dark"
-        width="350"
-        height="500"
-        allowtransparency="true"
-        frameborder="0"
-        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-    </iframe>
+<div class="page">
+
+    <main class="profile">
+
+        <div class="banner"></div>
+
+        <div class="profile-content">
+
+            <div class="avatar">
+                K
+            </div>
+
+            <div class="identity">
+                <h1>Kype</h1>
+                <div class="username">@kype</div>
+
+                <div class="status">
+                    <span class="status-dot"></span>
+                    Online
+                </div>
+            </div>
+
+            <div class="section">
+
+                <div class="section-title">
+                    About Me
+                </div>
+
+                <div class="about">
+                    Building communities, systems and things that shouldn't
+                    technically work as well as they do.
+                    <br><br>
+                    Currently working on <strong>Kype</strong> —
+                    an all-in-one Discord bot and community infrastructure
+                    built around moderation, security and automation.
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+
+                <div class="section-title">
+                    What I Do
+                </div>
+
+                <div class="cards">
+
+                    <div class="card">
+                        <div class="card-title">
+                            Community
+                        </div>
+
+                        <div class="card-text">
+                            Building and managing online communities,
+                            systems and experiences.
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">
+                            Development
+                        </div>
+
+                        <div class="card-text">
+                            Discord bots, automation, AI systems and
+                            custom infrastructure.
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">
+                            Kype
+                        </div>
+
+                        <div class="card-text">
+                            Moderation, security, tickets, automation,
+                            leveling and community tools.
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">
+                            Always Building
+                        </div>
+
+                        <div class="card-text">
+                            New projects, new systems and new ways
+                            to make things better.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section discord">
+
+                <div class="section-title">
+                    My Community
+                </div>
+
+                <iframe
+                    src="https://discord.com/widget?id=1550252796652036168&theme=dark"
+                    allowtransparency="true"
+                    frameborder="0"
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                </iframe>
+
+                <a
+                    class="button"
+                    href="https://discord.gg/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Join the Server
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        Kype · About Me
+    </footer>
+
+</div>
 
 </body>
 </html>
+```
