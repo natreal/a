@@ -1,235 +1,441 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>About Me — Nat</title>
+    <title>nat — about</title>
 
     <style>
+        :root {
+            --bg: #050506;
+            --surface: #0a0a0c;
+            --surface-2: #0e0e11;
+            --border: #1a1a1e;
+            --border-hover: #29292f;
+            --text: #ededf0;
+            --muted: #77777f;
+            --dim: #45454c;
+            --accent: #ffffff;
+        }
+
         * {
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
             min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
             background:
-                radial-gradient(circle at 50% -20%, #303038 0%, transparent 45%),
-                #0b0b0e;
-            color: #f2f2f3;
-            font-family: Arial, Helvetica, sans-serif;
-            display: flex;
-            justify-content: center;
-            padding: 60px 20px;
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(255,255,255,0.045),
+                    transparent 35%
+                );
+            z-index: -1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         .page {
-            width: 100%;
-            max-width: 900px;
+            width: min(1050px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 55px 0 80px;
         }
 
-        .profile {
-            background: rgba(20, 20, 24, 0.92);
-            border: 1px solid #29292f;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+        /* ─────────────────────────────
+           HEADER
+        ───────────────────────────── */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .banner {
-            height: 190px;
-            background:
-                linear-gradient(
-                    135deg,
-                    #18181d 0%,
-                    #29292f 45%,
-                    #111114 100%
-                );
-            position: relative;
-        }
-
-        .banner::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(
-                    120deg,
-                    transparent 0%,
-                    rgba(255,255,255,0.035) 50%,
-                    transparent 100%
-                );
-        }
-
-        .profile-content {
-            padding: 0 34px 34px;
-        }
-
-        .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: #111114;
-            border: 6px solid #141418;
-            margin-top: -55px;
-            position: relative;
-            z-index: 2;
+        .topbar-left {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 38px;
-            font-weight: 800;
-            letter-spacing: -2px;
+            gap: 10px;
         }
 
-        .identity {
-            margin-top: 14px;
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #777;
         }
 
-        .identity h1 {
+        .topbar-right {
+            color: var(--dim);
+        }
+
+        /* ─────────────────────────────
+           HERO
+        ───────────────────────────── */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: end;
+            margin-bottom: 90px;
+        }
+
+        .eyebrow {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
             margin: 0;
-            font-size: 30px;
-            letter-spacing: -1px;
+            font-size: clamp(64px, 11vw, 125px);
+            line-height: 0.82;
+            letter-spacing: -0.075em;
+            font-weight: 800;
         }
 
         .username {
-            color: #8f8f98;
-            margin-top: 5px;
-            font-size: 15px;
-        }
-
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 14px;
-            color: #b8b8bf;
+            margin-top: 22px;
+            color: var(--muted);
+            font-family: monospace;
             font-size: 14px;
         }
 
-        .status-dot {
-            width: 9px;
-            height: 9px;
-            background: #43b581;
+        .avatar {
+            width: 115px;
+            height: 115px;
+            border: 1px solid var(--border-hover);
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(67,181,129,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(circle at 35% 30%, #1b1b20, #08080a 65%);
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.08em;
+            box-shadow:
+                0 0 0 8px rgba(255,255,255,0.01),
+                0 20px 80px rgba(0,0,0,0.6);
         }
 
+        /* ─────────────────────────────
+           INTRO
+        ───────────────────────────── */
+
+        .intro {
+            max-width: 720px;
+            font-size: clamp(22px, 3vw, 31px);
+            line-height: 1.3;
+            letter-spacing: -0.035em;
+            color: #c9c9ce;
+            margin-bottom: 100px;
+        }
+
+        .intro strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ─────────────────────────────
+           SECTION
+        ───────────────────────────── */
+
         .section {
-            margin-top: 34px;
+            margin-bottom: 100px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 13px;
+            margin-bottom: 20px;
         }
 
         .section-title {
-            color: #85858e;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 12px;
+            letter-spacing: 0.16em;
+            color: var(--muted);
         }
 
-        .about {
-            color: #c8c8ce;
-            line-height: 1.7;
-            font-size: 15px;
+        .section-number {
+            color: var(--dim);
+            font-family: monospace;
+            font-size: 11px;
         }
 
-        .about strong {
-            color: #ffffff;
-        }
+        /* ─────────────────────────────
+           INTERESTS
+        ───────────────────────────── */
 
-        .divider {
-            height: 1px;
-            background: #29292f;
-            margin: 30px 0;
-        }
-
-        .cards {
+        .interests {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
         }
 
-        .card {
-            background: #17171b;
-            border: 1px solid #29292f;
-            border-radius: 12px;
-            padding: 18px;
+        .interest {
+            background: var(--surface);
+            padding: 30px;
+            min-height: 175px;
+            transition: background 0.2s, transform 0.2s;
         }
 
-        .card-title {
-            font-weight: 700;
-            margin-bottom: 7px;
+        .interest:hover {
+            background: var(--surface-2);
+            transform: translateY(-2px);
         }
 
-        .card-text {
-            color: #909098;
+        .interest-index {
+            color: var(--dim);
+            font-family: monospace;
+            font-size: 11px;
+            margin-bottom: 38px;
+        }
+
+        .interest h3 {
+            margin: 0 0 9px;
+            font-size: 19px;
+            letter-spacing: -0.03em;
+        }
+
+        .interest p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 360px;
+        }
+
+        /* ─────────────────────────────
+           CURRENTLY
+        ───────────────────────────── */
+
+        .currently {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            border-top: 1px solid var(--border);
+        }
+
+        .current-row {
+            display: contents;
+        }
+
+        .current-label,
+        .current-value {
+            padding: 19px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .current-label {
+            color: var(--dim);
+            font-family: monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .current-value {
+            color: #bcbcc2;
             font-size: 14px;
-            line-height: 1.5;
         }
 
-        .discord {
-            display: flex;
-            flex-direction: column;
+        /* ─────────────────────────────
+           DISCORD
+        ───────────────────────────── */
+
+        .discord-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 55px;
             align-items: center;
         }
 
-        .discord iframe {
+        .discord-copy h2 {
+            margin: 0 0 18px;
+            font-size: 35px;
+            letter-spacing: -0.05em;
+        }
+
+        .discord-copy p {
+            margin: 0 0 28px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+            max-width: 440px;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            border: 1px solid var(--border-hover);
+            background: #0d0d10;
+            border-radius: 7px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .discord-link:hover {
+            background: #151519;
+            border-color: #38383f;
+        }
+
+        .arrow {
+            color: var(--muted);
+        }
+
+        .widget {
             width: 350px;
             max-width: 100%;
             height: 500px;
-            border-radius: 12px;
-            border: 1px solid #29292f;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #0a0a0c;
         }
 
-        .button {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 18px;
-            padding: 12px 22px;
-            border-radius: 9px;
-            background: #5865f2;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            transition: 0.2s ease;
+        .widget iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
-        .button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+        /* ─────────────────────────────
+           PHILOSOPHY
+        ───────────────────────────── */
+
+        .quote {
+            border-left: 1px solid #38383e;
+            padding-left: 25px;
+            max-width: 760px;
         }
+
+        .quote p {
+            margin: 0;
+            font-size: clamp(24px, 4vw, 42px);
+            line-height: 1.15;
+            letter-spacing: -0.045em;
+            color: #d6d6da;
+        }
+
+        .quote span {
+            display: block;
+            margin-top: 25px;
+            color: var(--dim);
+            font-family: monospace;
+            font-size: 11px;
+        }
+
+        /* ─────────────────────────────
+           FOOTER
+        ───────────────────────────── */
 
         footer {
-            text-align: center;
-            color: #55555d;
-            font-size: 12px;
-            margin-top: 25px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--dim);
+            font-family: monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 20px 12px;
+        /* ─────────────────────────────
+           MOBILE
+        ───────────────────────────── */
+
+        @media (max-width: 720px) {
+
+            .page {
+                width: min(100% - 24px, 1050px);
+                padding-top: 30px;
             }
 
-            .banner {
-                height: 140px;
+            .topbar {
+                margin-bottom: 55px;
             }
 
-            .profile-content {
-                padding: 0 20px 25px;
+            .topbar-right {
+                display: none;
             }
 
-            .cards {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 65px;
+            }
+
+            .avatar {
+                width: 85px;
+                height: 85px;
+                font-size: 30px;
+            }
+
+            .intro {
+                margin-bottom: 70px;
+            }
+
+            .interests {
                 grid-template-columns: 1fr;
             }
 
-            .identity h1 {
-                font-size: 25px;
+            .currently {
+                grid-template-columns: 110px 1fr;
+            }
+
+            .discord-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .widget {
+                width: 100%;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -239,106 +445,227 @@
 
 <div class="page">
 
-    <main class="profile">
+    <!-- HEADER -->
 
-        <div class="banner"></div>
+    <header class="topbar">
+        <div class="topbar-left">
+            <span class="dot"></span>
+            <span>personal profile</span>
+        </div>
 
-        <div class="profile-content">
+        <div class="topbar-right">
+            2026 / nat
+        </div>
+    </header>
 
-            <div class="avatar">
-                K
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div>
+            <div class="eyebrow">Hello, I'm</div>
+
+            <h1>nat</h1>
+
+            <div class="username">
+                @natural_
+            </div>
+        </div>
+
+        <div class="avatar">
+            n
+        </div>
+
+    </section>
+
+
+    <!-- INTRO -->
+
+    <section class="intro">
+
+        I like understanding <strong>how things work</strong>,
+        pushing them further, and building things that are
+        actually useful.
+
+    </section>
+
+
+    <!-- INTERESTS -->
+
+    <section class="section">
+
+        <div class="section-header">
+            <span class="section-title">Interests</span>
+            <span class="section-number">01</span>
+        </div>
+
+        <div class="interests">
+
+            <article class="interest">
+                <div class="interest-index">01 / 06</div>
+                <h3>Psychology</h3>
+                <p>
+                    Human behavior, cognition, social dynamics,
+                    decision-making and the mechanisms behind people.
+                </p>
+            </article>
+
+            <article class="interest">
+                <div class="interest-index">02 / 06</div>
+                <h3>Logic</h3>
+                <p>
+                    Breaking problems down, finding patterns,
+                    questioning assumptions and figuring out
+                    what actually follows from what.
+                </p>
+            </article>
+
+            <article class="interest">
+                <div class="interest-index">03 / 06</div>
+                <h3>Physics</h3>
+                <p>
+                    Understanding the physical world from first
+                    principles rather than just memorizing what happens.
+                </p>
+            </article>
+
+            <article class="interest">
+                <div class="interest-index">04 / 06</div>
+                <h3>Programming</h3>
+                <p>
+                    Building systems, automating repetitive work,
+                    experimenting with software and turning ideas
+                    into functioning products.
+                </p>
+            </article>
+
+            <article class="interest">
+                <div class="interest-index">05 / 06</div>
+                <h3>AI</h3>
+                <p>
+                    AI systems, agents, APIs, tool use and finding
+                    practical ways to make intelligent software useful.
+                </p>
+            </article>
+
+            <article class="interest">
+                <div class="interest-index">06 / 06</div>
+                <h3>Endurance</h3>
+                <p>
+                    Running, cycling, strength training and deliberately
+                    testing physical limits.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- CURRENTLY -->
+
+    <section class="section">
+
+        <div class="section-header">
+            <span class="section-title">Currently</span>
+            <span class="section-number">02</span>
+        </div>
+
+        <div class="currently">
+
+            <div class="current-row">
+                <div class="current-label">building</div>
+                <div class="current-value">
+                    Kype — Discord community infrastructure & automation
+                </div>
             </div>
 
-            <div class="identity">
-                <h1>Kype</h1>
-                <div class="username">@natreal_</div>
-
-                <div class="status">
-                    <span class="status-dot"></span>
-                    Online
+            <div class="current-row">
+                <div class="current-label">learning</div>
+                <div class="current-value">
+                    Software, AI systems, physics & whatever gets interesting
                 </div>
             </div>
 
-            <div class="section">
-
-                <div class="section-title">
-                    About Me
+            <div class="current-row">
+                <div class="current-label">training</div>
+                <div class="current-value">
+                    Running · cycling · strength
                 </div>
+            </div>
 
-                <div class="about">
-                    Building communities, systems and things that shouldn't
-                    technically work as well as they do.
-                    <br><br>
-                    Currently working on <strong>Kype</strong> —
-                    an all-in-one Discord bot and community infrastructure
-                    built around moderation, security and automation.
+            <div class="current-row">
+                <div class="current-label">obsession</div>
+                <div class="current-value">
+                    Optimization
                 </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PHILOSOPHY -->
+
+    <section class="section">
+
+        <div class="section-header">
+            <span class="section-title">Mindset</span>
+            <span class="section-number">03</span>
+        </div>
+
+        <div class="quote">
+
+            <p>
+                Don't optimize for looking like you're
+                doing something. Optimize for actually
+                becoming better.
+            </p>
+
+            <span>— nat</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCORD -->
+
+    <section class="section">
+
+        <div class="section-header">
+            <span class="section-title">Community</span>
+            <span class="section-number">04</span>
+        </div>
+
+        <div class="discord-container">
+
+            <div class="discord-copy">
+
+                <h2>Kype</h2>
+
+                <p>
+                    A Discord community built around people,
+                    systems and actually having things going on.
+                    The infrastructure behind it is powered by Kype,
+                    an all-in-one Discord bot I'm building.
+                </p>
+
+                <a
+                    class="discord-link"
+                    href="https://discord.gg/YOUR_INVITE"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Join the community
+                    <span class="arrow">↗</span>
+                </a>
 
             </div>
 
-            <div class="divider"></div>
-
-            <div class="section">
-
-                <div class="section-title">
-                    What I Do
-                </div>
-
-                <div class="cards">
-
-                    <div class="card">
-                        <div class="card-title">
-                            Community
-                        </div>
-
-                        <div class="card-text">
-                            Building and managing online communities,
-                            systems and experiences.
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">
-                            Development
-                        </div>
-
-                        <div class="card-text">
-                            Discord bots, automation, AI systems and
-                            custom infrastructure.
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">
-                            Kype
-                        </div>
-
-                        <div class="card-text">
-                            Moderation, security, tickets, automation,
-                            leveling and community tools.
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">
-                            Always Building
-                        </div>
-
-                        <div class="card-text">
-                            New projects, new systems and new ways
-                            to make things better.
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="section discord">
-
-                <div class="section-title">
-                    My Community
-                </div>
+            <div class="widget">
 
                 <iframe
                     src="https://discord.com/widget?id=1550252796652036168&theme=dark"
@@ -347,26 +674,21 @@
                     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
                 </iframe>
 
-                <a
-                    class="button"
-                    href="https://discord.gg/egotistical"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Join the Server
-                </a>
-
             </div>
 
         </div>
 
-    </main>
+    </section>
+
+
+    <!-- FOOTER -->
 
     <footer>
-        Kype · About Me
+        <span>natural_</span>
+        <span>built from scratch</span>
     </footer>
 
 </div>
 
 </body>
 </html>
-```
